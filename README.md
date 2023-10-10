@@ -265,16 +265,50 @@ NOT : string veri tipi reference type olarak geçse de davranış olarak value t
 
 NOT : Koleksiyon sınıfları reference tipindedir; veri depolama ve erişim için kullanılan sınıflardır. Bu sınıflar System.Collections.Generic ad alanında(namespace) bulunur.
 
+## Coalescing Operator
+Tek satırda null check ve varsayılan değer atama işlemini yapabileceğimiz bir operatördür. (name = name ?? "default";)
 
+## Abstract Class vs Interface 
+Abstract :
+  - Hem somut (concrete) metotlar hem de soyut (abstract) metotlar içerebilen bir sınıf türüdür.
+  - Somut metotlar, özelleştirilmiş uygulamaları içerir ve alt sınıflar tarafından doğrudan kullanılabilir.
+  - Soyut metotlar ise sadece metot başlıklarını (imzalarını) içerir ve alt sınıflar bu metotları zorunlu olarak uygulamak zorundadır.
+  - Bir sınıf yalnızca bir soyut sınıfı miras alabilir.
 
+Interface :
+  - Sadece metot başlıklarını (imzalarını) içeren ve herhangi bir özelleştirilmiş olayı içermeyen bir yapıdır.
+  - Arabirimler, birden fazla sınıf tarafından aynı anda implement edilebilir (bir sınıf birden fazla arabirimi implement edebilir).
 
+## Sealed ,Virtual, Static ve Override Kavramları
+Sealed :
+  - Miras(Inheritance) alınmasını istemediğiniz sınıflar için kullanabileceğiniz bu keyword sayesinde kullanılan class hiçbir şekilde başka bir class’a miras olarak geçilemez.
+  - Özetle Sealed; sınıflar için kalıtım yapmayı, üyeler için ise override edilmeyi önler.
 
+Virtual :
+  - Sınıf içerisinde sanallaştırmak istediğimiz yani çakışma durumunda veya gövdesinin gerçekleştirdiği işlemin uygun olmadığını  düşündüğünüz zaman ezmek istediğimiz metot türleridir.
+  - Bir metot virtual olarak işaretlendiğinde, bu metotun alt sınıflar tarafından yeniden yazılması (override) ve değiştirilmesine izin verilir.
 
+Static :
+  - Static olarak tanımlanan üyeler(class, property, field) ram’de tek seferlik bir tanım yapılması sağlanır ve her okuma işleminde ram’deki bu kaynaktan doğrudan okunması sağlanır.
+  - Class özelinde static tanımını şöyle yapabiliriz; Bir instance almaya gerek duymadan doğrudan static olarak tanımlanmış sınıfın üyelerine erişilebilir ve değer ataması yapılabilir.
 
+Override :
+  - override anahtar kelimesi bir alt sınıfta, üst sınıfın (baz sınıfın) sanal (virtual) bir metot veya özellik (property) üzerine yeni bir uygulama sağladığını belirtir.
+  - Alt sınıftaki override metodu, temel sınıftaki virtual metodu ile aynı imzaya (metodun ismi, parametreleri ve dönüş tipi) sahip olmalıdır.
 
+## Design Patterns
+Tasarım deseni (Design Pattern), yazılım geliştirme süreçlerinde karşılaşılan sorunları çözmek için oluşturulmuş tekrar kullanılabilir çözüm şablonlarıdır. 
+Yazılımın daha sürdürülebilir, esnek ve anlaşılabilir olmasına yardımcı olur.
 
+1. Creational (Yaratıcı) Pattern
+   - Bu desenler, nesnelerin nasıl oluşturulacağına ve başlatılacağına odaklanır. Örnekler arasında Singleton, Factory Method ve Builder bulunur.
 
+2. Behavioral (Davranışsal) Pattern
+   - Bu desenler, nesnelerin nasıl bir araya getirileceği ve oluşturulacağına odaklanır. Örnekler arasında Adapter, Decorator ve Bridge bulunur.
 
+3. Structural (Yapısal) Pattern
+   - Bu desenler, nesnelerin nasıl işbirliği yapacağına odaklanır. Örnekler arasında Observer, Strategy ve Command bulunur.
+  
 
 
 

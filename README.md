@@ -146,6 +146,133 @@ Destructor(Yıkıcı Metot) :
   - Genellikle unmanaged kaynakları (bellek, dosya işlemleri, bağlantılar vb.) serbest bırakmak için kullanılır.
   - C# programcıları genellikle Destructorları özel olarak tanımlamak zorunda kalmazlar, çünkü çoğu zaman .NET çöp toplayıcı (garbage collector) bu kaynakları yönetir.
 
+## Boxing ve Unboxing nedir?
+Değer tiplerinin referans tipine dönüşmesine kutulama (boxing), referans tiplerin değer tipine dönüşmesine ise kutu-açma (unboxing) denir.
+
+## Jagged Array
+Jagged Arrays, elemanları dizi olan bir dizidir. Boyutları tek veya birden fazla olabilir.
+
+  ```
+    int[ ][ ] jaggedArr = new int[3][ ];
+  ```
+
+## Access Modifiers
+Private :
+  - Tanımlanan değişkene sadece kendi class’ı içinden ulaşılabileceği anlamına gelmektedir. Kesinlikle değiştirilmemesi gereken kodlarda kullanılmaktadır.
+    
+Public :
+  -  Kod içinde herhangi bir yerden erişilebilir durumda olmasını sağlar. Public erişim belirleyici tipinde kısıtlama yoktur.
+    
+Protected :
+  - Bulunduğu class ve o class üzerinden türetilen sınıflar içinden erişilebilir olduğunu göstermektedir.
+
+Internal :
+  - Aynı program(proje) içerisinden erişilebilir fakat farklı program içerisinden erişilemez. Program içerisinde herhangi bir kısıtlaması yoktur.
+
+Protected Internal :
+  - Bir üyenin hem kendi sınıfı içinde hem de aynı derleme (assembly) içindeki diğer sınıflardan erişilmesine izin verir.
+
+NOT: "internal" sınıf üyelerine sadece aynı derleme içindeki diğer sınıflar erişebilirken, "protected internal" ise aynı derleme içindeki diğer sınıfların yanı sıra türetilmiş sınıfların da erişmesine izin verir.
+
+## Dispose Metodu
+  - Yönetilmeyen kaynakların serbest bırakılması için kullanılır. Dispose yöntemi programcının kaynakların verimli kullanımı için manuel olarak uygulaması gerekir.
+  - .NET Framework'teki IDisposable arabirimini uygulayan sınıflarda genellikle kullanılan bir metottur. Bu metod, sınıfın kaynaklarını serbest bırakmak ve gerektiğinde belleği temizlemek için kullanılır.
+  - Özellikle unmanaged kaynakları (örneğin dosya işlemleri, ağ bağlantıları veya veritabanı bağlantıları gibi) düzgün bir şekilde serbest bırakmak için kullanılır.
+
+## Static ve Void
+Static :
+  - Bir sınıf üyesi (alan, metot, özellik) static olarak işaretlendiğinde, bu üye sınıfın bir örneği (instance) oluşturulmadan doğrudan sınıf adıyla erişilebilir.
+  - static üyeler, tüm örnekler (instance) arasında paylaşılır ve bu nedenle tüm örnekler için aynı değeri veya davranışı temsil eder.
+  - Genellikle yardımcı metotlar, sabit değerler veya örneklerle bağlantılı olmayan işlevselliği ifade etmek için kullanılır.
+
+Void :
+  - void dönüş tipine sahip bir metot bir değer üretmez, sadece belirli bir işlemi gerçekleştirir.
+  - void dönüş tipi, genellikle bir metotun sonuç döndürmesi gerekmediğinde veya sadece yan etki (side effect) üreteceğinde kullanılır.
+
+## Delegate ve Multi Delegate
+Delegate :
+  - Bir metot imzasını temsil eden ve bu metotları işaret edebilen bir türdür.
+  - Bir metot referansıdır ve bu referans, belirli bir metodu çağırmak için kullanılabilir.
+  - Bir olayın abone edilmesi (subscribe) veya callback işlevleri gibi senaryolarda kullanılır.
+
+    ```
+    // Delege tanımı
+    public delegate void MyDelegate(string message);
+    
+    // Delege'ye bir metot atama
+    MyDelegate delegateInstance = Console.WriteLine;
+    
+    // Delege ile metot çağırma
+    delegateInstance("Merhaba, Dünya!");
+    ```
+
+Multicast Delegate :
+  -  Birden fazla metodu aynı anda çağırmak için kullanılan bir Delegate türüdür.
+  -  Birden fazla metot referansını içerebilir ve bu referanslardan her biri çağrıldığında ilgili metotlar sırayla çalıştırılır.
+  -  += operatörü ile birden fazla metot referansı Multicast Delegate'e eklenir ve -= operatörü ile çıkarılır.
+
+    ```
+    public delegate void MyDelegate(string message);
+
+    class Program
+    {
+        static void Main()
+        {
+            MyDelegate multicastDelegate = Method1;
+            multicastDelegate += Method2;
+            multicastDelegate += Method3;
+    
+            multicastDelegate("Merhaba, Dünya!");
+    
+            // Çıktı:
+            // Method1: Merhaba, Dünya!
+            // Method2: Merhaba, Dünya!
+            // Method3: Merhaba, Dünya!
+        }
+    
+        static void Method1(string message)
+        {
+            Console.WriteLine("Method1: " + message);
+        }
+    
+        static void Method2(string message)
+        {
+            Console.WriteLine("Method2: " + message);
+        }
+    
+        static void Method3(string message)
+        {
+            Console.WriteLine("Method3: " + message);
+        }
+    }
+    ```
+
+## Value Type ve Reference Type
+Value Type :
+  - "Value type" veriler, değerlerini doğrudan içerir ve bellekte "stack" adı verilen veri yapısında saklanır.
+  - Değer türü değişkenleri, bellekteki değerleri kopyalayarak çalışır. Yani bir değer türü değişkeni başka bir değişkene atandığında, değerler kopyalanır ve bağımsızdır.
+  - int, float, char, bool, struct gibi veri türleri değer türlerine örnektir.
+  - Değer türü değişkenler, hızlıdır ve değerlerin kopyalanmasına dayalıdır.
+
+Reference Type :
+  - "Reference type" veriler, değerlerinin bellekteki bir referansa (adrese) işaret ettiği bir "heap" adı verilen veri yapısında saklanır.
+  - Referans türü değişkenleri, değerleri yerine bu değerlerin bellekteki adreslerini (referanslarını) saklarlar.
+  - Bu nedenle bir referans türü değişkeni başka bir değişkene atandığında, aynı bellek alanını işaret ederler.
+  - string, sınıflar (class), diziler (array), object gibi veri türleri referans türlerine örnektir.
+  - Referans türü değişkenler, bellekte dinamik olarak yönetildiği için daha fazla esneklik sunar ancak değer türleri kadar hızlı değildir.
+
+NOT : string veri tipi reference type olarak geçse de davranış olarak value type gibi davranır.
+
+NOT : Koleksiyon sınıfları reference tipindedir; veri depolama ve erişim için kullanılan sınıflardır. Bu sınıflar System.Collections.Generic ad alanında(namespace) bulunur.
+
+
+
+
+
+
+
+
+
 
 
 
